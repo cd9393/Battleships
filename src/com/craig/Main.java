@@ -14,11 +14,13 @@ public class Main {
         String endCoordinates;
 
         for (Ships ship : Ships.values()) {
-            System.out.println(ship.getMessage());
+            boolean isCoordinatesOkay = false;
             do {
+                System.out.println(ship.getMessage());
                  startCoordinates = scanner.next();
                  endCoordinates = scanner.next();
-            } while(areCoordinatesOkay(board,startCoordinates, endCoordinates, ship.getLength()));
+                 isCoordinatesOkay = areCoordinatesOkay(board,startCoordinates,endCoordinates, ship.getLength());
+            } while(!isCoordinatesOkay);
             board.populateShipOnboard(startCoordinates,endCoordinates);
         }
     }
@@ -30,7 +32,7 @@ public class Main {
         } else if (!board.isLengthOkay(startCoordinates, endCoordinates, shipLength)){
             System.out.println("Error wrong length, please enter coordinates with length " + shipLength);
             return false;
-        } else if (board.isCellFree(startCoordinates,endCoordinates)) {
+        } else if (!board.isCellFree(startCoordinates,endCoordinates)) {
             System.out.println("Error coordinates are too close to other ship");
             return false;
         } else {
