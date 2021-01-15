@@ -33,6 +33,24 @@ public class Board {
         }
     }
 
+    public void takeShot(String coordinates) {
+        // check coordinates are within limits
+        // convert coordinates to [row][column]
+        int row = coordinates.charAt(0) - 65;
+        int column = Integer.parseInt(coordinates.substring(1)) -1;
+        // if [row][column] == 'O' Output "you hit a ship" set [row][column] to 'X'
+        if (this.board[row][column] == 'O') {
+            this.board[row][column] = 'X';
+            printBoard();
+            System.out.println("You hit a ship");
+        } else {
+            this.board[row][column] = 'M';
+            printBoard();
+            System.out.println("You missed!");
+        }
+        //else Output "You missed", set [row][column] to 'M'
+    }
+
     public  boolean checkCoordinatesFreeRow(int row, int start, int end) {
         boolean coordinatesFree = true;
 

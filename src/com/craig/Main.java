@@ -12,6 +12,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String startCoordinates;
         String endCoordinates;
+        String shotCoordinates;
 
         for (Ships ship : Ships.values()) {
             boolean isCoordinatesOkay = false;
@@ -19,13 +20,33 @@ public class Main {
                 System.out.println(ship.getMessage());
                  startCoordinates = scanner.next();
                  endCoordinates = scanner.next();
-                 isCoordinatesOkay = areCoordinatesOkay(board,startCoordinates,endCoordinates, ship.getLength());
+                 isCoordinatesOkay = areShipCoordinatesOkay(board,startCoordinates,endCoordinates, ship.getLength());
             } while(!isCoordinatesOkay);
             board.populateShipOnboard(startCoordinates,endCoordinates);
         }
+
+        System.out.println("The game starts!");
+        boolean areShotCoordinatesOkay = false;
+        do {
+            System.out.println("Take a shot");
+            shotCoordinates = scanner.next();
+            areShotCoordinatesOkay = isShotCoordinatesOkay(shotCoordinates);
+
+        } while(!areShotCoordinatesOkay);
+        board.takeShot(shotCoordinates);
     }
 
-    public static boolean areCoordinatesOkay(Board board, String startCoordinates, String endCoordinates, int shipLength) {
+    public static boolean isShotCoordinatesOkay(String shotCoordinates) {
+        int row = shotCoordinates.charAt(0) - 65;
+        int column = Integer.parseInt(shotCoordinates.substring(1));
+        if (row < 0 || row > 10 || column < 0 || column > 10) {
+            System.out.println("You have entered incorrect coordinates");
+            return false;
+        }else {
+            return true;
+        }
+    }
+    public static boolean areShipCoordinatesOkay(Board board, String startCoordinates, String endCoordinates, int shipLength) {
         if(board.isCoordinateDiagonal(startCoordinates, endCoordinates)) {
             System.out.println("Error ship can't be placed diagonally.");
             return false;
