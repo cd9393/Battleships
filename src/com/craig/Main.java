@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         Board board = new Board(10, 10);
+
         board.printBoard();
         Scanner scanner = new Scanner(System.in);
         String startCoordinates;
@@ -18,14 +19,16 @@ public class Main {
             boolean isCoordinatesOkay = false;
             do {
                 System.out.println(ship.getMessage());
-                 startCoordinates = scanner.next();
-                 endCoordinates = scanner.next();
-                 isCoordinatesOkay = areShipCoordinatesOkay(board,startCoordinates,endCoordinates, ship.getLength());
+                startCoordinates = scanner.next();
+                endCoordinates = scanner.next();
+                isCoordinatesOkay = areShipCoordinatesOkay(board,startCoordinates,endCoordinates, ship.getLength());
             } while(!isCoordinatesOkay);
             board.populateShipOnboard(startCoordinates,endCoordinates);
         }
 
         System.out.println("The game starts!");
+        board.printBoardFogOfWar();
+
         boolean areShotCoordinatesOkay = false;
         do {
             System.out.println("Take a shot");
