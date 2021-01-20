@@ -1,7 +1,7 @@
 package com.craig;
 
+
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Board {
     private int rows;
@@ -49,22 +49,34 @@ public class Board {
         }
     }
 
+    public boolean isAllShipsDestroyed() {
+        int hits = 0;
+        for (int i =0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (board[i][j] == 'X') {
+                    hits ++;
+                }
+            }
+        }
+        return hits == 17;
+    }
+
     public void takeShot(String coordinates) {
         // check coordinates are within limits
         // convert coordinates to [row][column]
         int row = coordinates.charAt(0) - 65;
         int column = Integer.parseInt(coordinates.substring(1)) -1;
         // if [row][column] == 'O' Output "you hit a ship" set [row][column] to 'X'
-        if (this.board[row][column] == 'O') {
+        if (this.board[row][column] == 'O' || this.board[row][column] == 'X') {
             this.board[row][column] = 'X';
             printBoardFogOfWar();
-            System.out.println("You hit a ship");
-            printBoard();
+            System.out.println("You hit a ship! Try again:");
+            //printBoard();
         } else {
             this.board[row][column] = 'M';
             printBoardFogOfWar();
-            System.out.println("You missed!");
-            printBoard();
+            System.out.println("You missed! Try again:");
+            //printBoard();
         }
         //else Output "You missed", set [row][column] to 'M'
     }

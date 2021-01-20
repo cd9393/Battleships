@@ -1,6 +1,5 @@
 package com.craig;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -29,14 +28,18 @@ public class Main {
         System.out.println("The game starts!");
         board.printBoardFogOfWar();
 
-        boolean areShotCoordinatesOkay = false;
-        do {
-            System.out.println("Take a shot");
-            shotCoordinates = scanner.next();
-            areShotCoordinatesOkay = isShotCoordinatesOkay(shotCoordinates);
+        while (!board.isAllShipsDestroyed()) {
+            boolean areShotCoordinatesOkay = false;
+            do {
+                System.out.println("Take a shot");
+                shotCoordinates = scanner.next();
+                areShotCoordinatesOkay = isShotCoordinatesOkay(shotCoordinates);
 
-        } while(!areShotCoordinatesOkay);
-        board.takeShot(shotCoordinates);
+            } while(!areShotCoordinatesOkay);
+            board.takeShot(shotCoordinates);
+        }
+
+        System.out.println("You sank the last ship. You won. Congratulations!");
     }
 
     public static boolean isShotCoordinatesOkay(String shotCoordinates) {
