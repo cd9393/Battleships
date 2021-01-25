@@ -1,6 +1,4 @@
 package com.craig;
-
-
 import java.util.Objects;
 
 public class Board {
@@ -70,12 +68,12 @@ public class Board {
         if (this.board[row][column] == 'O' || this.board[row][column] == 'X') {
             this.board[row][column] = 'X';
             printBoardFogOfWar();
-            System.out.println("You hit a ship! Try again:");
+            System.out.println("You hit a ship!");
             //printBoard();
         } else {
             this.board[row][column] = 'M';
             printBoardFogOfWar();
-            System.out.println("You missed! Try again:");
+            System.out.println("You missed!");
             //printBoard();
         }
         //else Output "You missed", set [row][column] to 'M'
@@ -209,7 +207,7 @@ public class Board {
         }
     }
 
-    public  void populateShipOnboard(String startCoordinates, String endCoordinates) {
+    public  void populateShipOnboard(String startCoordinates, String endCoordinates, Ships ship) {
         int start;
         int end;
 
