@@ -3,10 +3,16 @@ package com.craig;
 import java.util.Scanner;
 
 public class Board {
-    int size;
-    private char[][] board;
+    // These fields should be private & final
+    // Also should be using getters + setters for access (encapsulation)
+    int size; // This could also be a constant, instead of being set in the constructor.
+    private char[][] board; // I'd rename this to something like grid, too similar to class name
+
+    // Lists are generally better and easier to use over primitive arrays
+    // the multi-dimensional array for the board fits in nicely though, so the list comment is only for one-dimensional structures
     Ship[] ships;
 
+    // public Board(int size) {
     public Board(int size) {
         this.size = size;
         board = new char[size][size];
@@ -19,6 +25,7 @@ public class Board {
         ships[4] = new Ship("Destroyer", 2);
     }
 
+    // This is fine in here since it's a utility that helps to construct the Board
     private void populateBoard() {
         this.board = new char[size][size];
         for (int i = 0; i < size; i++) {
@@ -28,6 +35,10 @@ public class Board {
         }
     }
 
+    // I'd extract the populating of the ships outside the Board class. This class is doing enough, a class should ideally only
+    // perform a single use or represent an object as a POJO (Plain old java object)
+    // Board to me would be a POJO that would model what the board looks like and what it contains
+    // The populateShips would be better suited as a separate utility, where you pass in the Board to be populated
     public void populateShips() {
         Scanner scanner = new Scanner(System.in);
         for (Ship ship : ships) {
@@ -52,6 +63,7 @@ public class Board {
         }
     }
 
+    // Fine in here, but I'd go with the grid name, and pass in Coordinate objects instead
     public void addToBoard(int rowStart, int rowEnd, int columnStart, int columnEnd) {
         for (int i = rowStart; i <= rowEnd; i++) {
             for (int j = columnStart; j <= columnEnd; j++) {
@@ -105,6 +117,7 @@ public class Board {
         return true;
     }
 
+    // All printing methods can be placed in a BoardPrinter utility class full of static methods
     public void printBoardFogOfWar() {
         System.out.println("  1 2 3 4 5 6 7 8 9 10");
         for (int i = 0; i < size; i++) {
@@ -133,6 +146,7 @@ public class Board {
         }
     }
 
+    // TODO:
     public void takeShot(int row, int column) {
         if (board[row][column] == '~' || board[row][column] == 'M') {
             board[row][column] = 'M';
@@ -179,6 +193,7 @@ public class Board {
         }
     }
 
+    // Fine in this class
     public boolean isAllShipsDestroyed() {
         for (Ship ship : ships) {
             if (!ship.isSank) {

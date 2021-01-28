@@ -2,12 +2,29 @@ package com.craig;
 
 import java.util.Arrays;
 
+// Overall a well structured class, the only thing it does is represent the Ship (Classes that do too much are bad and hard to test)
 public class Ship {
+
+    // These fields should be private & final
+    // Also should be using getters + setters for access (encapsulation)
+    // I see some getters have been used at the bottom, but basically no fields in a class should be directly accessible from
+    // outside of the class they are defined.
     int size;
     String name;
     char[] cells;
     boolean isPlaced;
     boolean isSank;
+
+    // instead of storing various ints, you could create a Coordinates class that stores an (X,Y) aka (row,column) and have these
+    // Coordinates constructed and passed into the Ship
+    // e.g.
+    //
+    // private final Coordinate begin;
+    // private final Coordinate end;
+    //
+    // with them being built outside the constructor and passed as params, (or set like via setCoordinates) - preference being on the first,
+    // final fields MUST be intialised at the time of the object being instansiated, so this forces the Ship objects to
+    // have coordinates at runtime
     int rowBegin;
     int rowEnd;
     int columnBegin;
